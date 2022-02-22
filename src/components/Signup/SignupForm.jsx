@@ -24,18 +24,25 @@ const SignupForm = () => {
       password: Yup.string()
         .required("Required")
         .matches(
-            /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
+          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
           "Pass must be 7 to 19 characters and contain at least one letter, one number and a speacil character"
         ),
-        confirmedPassword: Yup.string().required("Required").oneOf([Yup.ref("password"),null], "Password must match"),
-        phone: Yup.string().required("Required").matches(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/, "Must be valid phone number")
+      confirmedPassword: Yup.string()
+        .required("Required")
+        .oneOf([Yup.ref("password"), null], "Password must match"),
+      phone: Yup.string()
+        .required("Required")
+        .matches(
+          /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
+          "Must be valid phone number"
+        ),
     }),
     onSubmit: (values) => {
       console.log(values);
     },
   });
 
-  console.log(formik.errors.password)
+  console.log(formik.errors.password);
 
   return (
     <section>
@@ -50,7 +57,7 @@ const SignupForm = () => {
           placeholder="Enter your name"
         />
         {formik.errors.name && (
-            <p className="errorMsg"> {formik.errors.name} </p>
+          <p className="errorMsg"> {formik.errors.name} </p>
         )}
         <label> Email Address </label>
         <input
@@ -62,11 +69,11 @@ const SignupForm = () => {
           placeholder="Enter your email"
         />
         {formik.errors.email && (
-            <p className="errorMsg"> {formik.errors.email} </p>
+          <p className="errorMsg"> {formik.errors.email} </p>
         )}
         <label> Password </label>
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           value={formik.values.password}
@@ -74,11 +81,11 @@ const SignupForm = () => {
           placeholder="Enter your password"
         />
         {formik.errors.password && (
-            <p className="errorMsg"> {formik.errors.password} </p>
+          <p className="errorMsg"> {formik.errors.password} </p>
         )}
         <label> Comfirmed Password </label>
         <input
-          type="text"
+          type="password"
           id="confirmedPassword"
           name="confirmedPassword"
           value={formik.values.confirmedPassword}
@@ -86,7 +93,7 @@ const SignupForm = () => {
           placeholder="Confirm your password"
         />
         {formik.errors.confirmedPassword && (
-            <p className="errorMsg"> {formik.errors.confirmedPassword} </p>
+          <p className="errorMsg"> {formik.errors.confirmedPassword} </p>
         )}
         <label> Phone Number </label>
         <input
@@ -98,7 +105,7 @@ const SignupForm = () => {
           placeholder="Enter your phone"
         />
         {formik.errors.phone && (
-            <p className="errorMsg"> {formik.errors.phone} </p>
+          <p className="errorMsg"> {formik.errors.phone} </p>
         )}
         <button type="submit">Continue</button>
       </form>
